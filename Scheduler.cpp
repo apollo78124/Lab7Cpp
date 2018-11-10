@@ -4,6 +4,11 @@
 #include "Scheduler.hpp"
 
 using namespace std;
+/**
+ * Read the list, sort the list,
+ * return it as vector.
+ * @return vector.
+ */
 vector<Course> Scheduler::readList() {
     //TODO read from courses.txt
 
@@ -34,6 +39,8 @@ vector<Course> Scheduler::readList() {
                     break;
                 case 'W' : day = Course::WED;
                     break;
+                case 'R' : day = Course::THUR;
+                    break;
                 case 'F' : day = Course::FRI;
                     break;
                 case 'S' : day = Course::SAT;
@@ -57,21 +64,42 @@ vector<Course> Scheduler::readList() {
     return v;
 }
 
-void Scheduler::overlapSearch(vector<Course> v) {
+/**
+ * Current sample data will create 4 schedule conflict.
+ * @param v vector passed in.
+ */
+void Scheduler::overlapSearch(vector<Course>& v) {
 
-    //TODO sort your STL container with the sort algorithm
+
 
     //TODO implement code to determine schedule conflicts
     //TODO print out schedule conflicts
     //TODO print out schedule
-//    vector<Course>::iterator i;
-//    for (i = v.begin(); i != v.end(); i++){
-//        cout<<*i<<endl;
-//    }
 
-    for (auto i = 0; i <= v.size(); i++){
-        cout<<v[i]<<endl;
+    int conflict = 0;
+    vector<Course> overlap;
+    cout<<"Schedule"<<endl;
+    vector<Course>::iterator i;
+    Course temp = *(v.begin());
+    cout<<*(v.begin())<<endl;
+    for (i = v.begin() + 1; i != v.end(); i++) {
+        cout<<*i<<endl;
+        if (*i == temp) {
+            overlap.push_back(*i);
+            overlap.push_back(temp);
+            conflict++;
+        }
+        temp = *i;
     }
-
+    cout<<endl;
+    cout<<conflict<<" SCHEDULE CONFLICT"<<endl;
+    int c = 0;
+    for (i = overlap.begin(); i != overlap.end(); i++){
+        if (c % 2 == 0) {
+            cout<<endl;
+        }
+        cout<<*i<<endl;
+        c++;
+    }
 }
 
